@@ -10,6 +10,13 @@ function initialAxes(): Record<AxisKey, number> {
   return Object.fromEntries(AXES.map((a) => [a.key, 50])) as Record<AxisKey, number>;
 }
 
+const stepLabels = [
+  { jp: "13軸", en: "AXIS" },
+  { jp: "時間軸", en: "HORIZON" },
+  { jp: "流れ", en: "MODE" },
+  { jp: "言葉", en: "INTENT" },
+];
+
 export default function PredictPage() {
   const router = useRouter();
   const [axes, setAxes] = useState<Record<AxisKey, number>>(initialAxes());
@@ -37,289 +44,323 @@ export default function PredictPage() {
   };
 
   return (
-    <div style={{ maxWidth: 720, margin: "0 auto", padding: "52px 28px 70px" }}>
-      <div className="fsi" style={{ animationDelay: "0.04s", marginBottom: 36 }}>
-        <div className="label-eyebrow" style={{ marginBottom: 14 }}>
-          Predict · 現在地を入れる
-        </div>
-        <h1 className="h-title" style={{ margin: "0 0 14px 0" }}>
-          いまの自分を、置いていく
-        </h1>
-        <p className="body-soft" style={{ maxWidth: 460 }}>
-          正確である必要はない。直感の手応えで、ゆっくり選んでいい。
-        </p>
-      </div>
-
-      <div
-        className="fsi"
+    <div>
+      <section
         style={{
-          display: "flex",
-          gap: 8,
-          marginBottom: 32,
-          animationDelay: "0.14s",
+          padding: "clamp(50px, 7vw, 90px) clamp(20px, 5vw, 64px) clamp(28px, 4vw, 50px)",
+          borderBottom: "1px solid var(--line)",
         }}
       >
-        {["13軸", "時間軸", "流れ", "言葉"].map((label, i) => (
-          <div
-            key={label}
-            style={{
-              flex: 1,
-              padding: "10px 0",
-              textAlign: "center",
-              border: `1px solid ${step === i ? "rgba(255,255,255,0.32)" : "rgba(255,255,255,0.07)"}`,
-              borderRadius: 10,
-              background: step === i ? "rgba(255,255,255,0.05)" : "transparent",
-              transition: "all 0.3s ease",
-              cursor: "pointer",
-            }}
-            onClick={() => setStep(i)}
-          >
-            <div
-              className="mono"
-              style={{
-                fontSize: 9,
-                color: "rgba(255,255,255,0.4)",
-                letterSpacing: "0.2em",
-                marginBottom: 3,
-              }}
-            >
-              0{i + 1}
+        <div className="mono rise" style={{ fontSize: 10, letterSpacing: "0.28em", textTransform: "uppercase", color: "var(--fg-mid)", marginBottom: 22 }}>
+          ▸ STAGE 01 · INPUT — 現在地を置く
+        </div>
+        <h1
+          className="display rise"
+          style={{ fontSize: "clamp(44px, 10vw, 120px)", margin: 0, animationDelay: "0.08s" }}
+        >
+          PREDICT
+        </h1>
+        <p
+          className="serif rise"
+          style={{
+            marginTop: 24,
+            fontSize: "clamp(15px, 1.4vw, 19px)",
+            fontWeight: 300,
+            color: "var(--fg-mid)",
+            lineHeight: 1.8,
+            maxWidth: 540,
+            animationDelay: "0.18s",
+          }}
+        >
+          正確である必要はない。直感の手応えで、ゆっくり置いていく。
+        </p>
+      </section>
+
+      <section style={{ padding: "clamp(36px, 5vw, 70px) clamp(20px, 5vw, 64px)" }}>
+        <div
+          className="rise"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(4, 1fr)",
+            gap: 0,
+            marginBottom: 40,
+            borderTop: "1px solid var(--line)",
+            borderBottom: "1px solid var(--line)",
+            animationDelay: "0.06s",
+          }}
+        >
+          {stepLabels.map((s, i) => {
+            const active = step === i;
+            return (
+              <button
+                key={s.en}
+                onClick={() => setStep(i)}
+                style={{
+                  padding: "18px 16px",
+                  textAlign: "left",
+                  borderLeft: i === 0 ? "none" : "1px solid var(--line-ghost)",
+                  background: active ? "rgba(255,255,255,0.04)" : "transparent",
+                  position: "relative",
+                  cursor: "pointer",
+                  transition: "background 0.2s ease",
+                }}
+              >
+                <div className="mono" style={{ fontSize: 10, letterSpacing: "0.24em", color: active ? "var(--accent)" : "var(--fg-mid)" }}>
+                  0{i + 1} — {s.en}
+                </div>
+                <div className="serif" style={{ fontSize: 16, fontWeight: 500, marginTop: 6, color: active ? "var(--fg)" : "var(--fg-low)" }}>
+                  {s.jp}
+                </div>
+                {active && (
+                  <span
+                    style={{
+                      position: "absolute",
+                      left: 0,
+                      bottom: -1,
+                      height: 2,
+                      width: "100%",
+                      background: "var(--accent)",
+                    }}
+                  />
+                )}
+              </button>
+            );
+          })}
+        </div>
+
+        <div
+          className="rise"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "minmax(0, 200px) 1fr",
+            gap: "clamp(24px, 4vw, 72px)",
+            alignItems: "start",
+            animationDelay: "0.16s",
+          }}
+        >
+          <div style={{ position: "sticky", top: 96 }}>
+            <div className="mono" style={{ fontSize: 10, letterSpacing: "0.28em", color: "var(--fg-mid)", textTransform: "uppercase", marginBottom: 8 }}>
+              SECTION — {String(step + 1).padStart(2, "0")}/04
             </div>
-            <div
-              style={{
-                fontSize: 11,
-                color: step === i ? "rgba(255,255,255,0.88)" : "rgba(255,255,255,0.4)",
-              }}
-            >
-              {label}
+            <div className="serif" style={{ fontSize: 28, fontWeight: 300, lineHeight: 1.4, marginBottom: 18 }}>
+              {step === 0 && "13軸の\n現在地"}
+              {step === 1 && "どこまでの\n未来か"}
+              {step === 2 && "どの方向の\n流れか"}
+              {step === 3 && "そっと\n一言"}
+            </div>
+            <div style={{ fontSize: 11.5, color: "var(--fg-low)", lineHeight: 1.85 }}>
+              {step === 0 && "全部に答えなくていい。 50のままでもいい。直感で。"}
+              {step === 1 && "時間が長いほど、ツインの輪郭は揺らぐ。"}
+              {step === 2 && "拡張・均衡・深化。三つのうち、いまの感じはどれか。"}
+              {step === 3 && "書かなくていい。書くなら短く。"}
             </div>
           </div>
-        ))}
-      </div>
 
-      <div className="glass-card fsi" style={{ padding: 28, animationDelay: "0.22s" }}>
-        {step === 0 && (
           <div>
-            <div className="label-eyebrow" style={{ marginBottom: 16 }}>
-              13軸の現在地 · 0〜100
-            </div>
-            <div style={{ display: "grid", gap: 18 }}>
-              {AXES.map((a) => (
-                <div key={a.key}>
+            {step === 0 && (
+              <div style={{ display: "grid", gap: 0, borderTop: "1px solid var(--line)" }}>
+                {AXES.map((a, i) => (
                   <div
+                    key={a.key}
                     style={{
-                      display: "flex",
-                      alignItems: "baseline",
-                      justifyContent: "space-between",
-                      marginBottom: 7,
+                      padding: "20px 0",
+                      borderBottom: "1px solid var(--line-ghost)",
+                      display: "grid",
+                      gridTemplateColumns: "minmax(0, 1fr) 60px",
+                      gap: 24,
+                      alignItems: "center",
                     }}
                   >
-                    <div style={{ display: "flex", alignItems: "baseline", gap: 10 }}>
+                    <div>
+                      <div style={{ display: "flex", alignItems: "baseline", gap: 12, marginBottom: 12 }}>
+                        <span className="mono" style={{ fontSize: 10, color: "var(--fg-ghost)", letterSpacing: "0.2em" }}>
+                          AX/{String(i + 1).padStart(2, "0")}
+                        </span>
+                        <span className="serif" style={{ fontSize: 22, fontWeight: 500 }}>
+                          {a.jp}
+                        </span>
+                        <span className="mono" style={{ fontSize: 10, color: "var(--fg-ghost)", letterSpacing: "0.18em", textTransform: "uppercase" }}>
+                          {a.label}
+                        </span>
+                        <span style={{ fontSize: 11, color: "var(--fg-low)", marginLeft: "auto" }}>{a.hint}</span>
+                      </div>
+                      <input
+                        type="range"
+                        min={0}
+                        max={100}
+                        value={axes[a.key]}
+                        onChange={(e) =>
+                          setAxes((prev) => ({ ...prev, [a.key]: Number(e.target.value) }))
+                        }
+                        className="range"
+                      />
+                    </div>
+                    <div
+                      className="display"
+                      style={{
+                        fontSize: 36,
+                        color: "var(--fg)",
+                        textAlign: "right",
+                        lineHeight: 1,
+                      }}
+                    >
+                      {String(axes[a.key]).padStart(2, "0")}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {step === 1 && (
+              <div style={{ display: "grid", gap: 0, borderTop: "1px solid var(--line)" }}>
+                {HORIZONS.map((h, i) => {
+                  const active = horizon === h.key;
+                  return (
+                    <button
+                      key={h.key}
+                      onClick={() => setHorizon(h.key)}
+                      style={{
+                        padding: "26px 0",
+                        borderBottom: "1px solid var(--line-ghost)",
+                        display: "grid",
+                        gridTemplateColumns: "80px 1fr auto",
+                        alignItems: "center",
+                        gap: 24,
+                        textAlign: "left",
+                        background: active ? "rgba(255,255,255,0.03)" : "transparent",
+                        transition: "background 0.2s ease",
+                        cursor: "pointer",
+                      }}
+                    >
+                      <span className="mono" style={{ fontSize: 11, color: active ? "var(--accent)" : "var(--fg-mid)", letterSpacing: "0.22em" }}>
+                        HZ/{String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span className="serif" style={{ fontSize: 28, fontWeight: active ? 500 : 300, color: active ? "var(--fg)" : "var(--fg-mid)" }}>
+                        {h.jp}
+                      </span>
                       <span
                         className="mono"
                         style={{
-                          fontSize: 10,
-                          color: "rgba(255,255,255,0.4)",
-                          letterSpacing: "0.18em",
+                          fontSize: 11,
+                          letterSpacing: "0.28em",
+                          textTransform: "uppercase",
+                          color: active ? "var(--fg)" : "var(--fg-ghost)",
                         }}
                       >
-                        {a.label}
+                        {active ? "▸ " : ""}{h.label}
                       </span>
-                      <span style={{ fontSize: 12, color: "rgba(255,255,255,0.78)" }}>{a.jp}</span>
-                      <span style={{ fontSize: 10, color: "rgba(255,255,255,0.28)" }}>{a.hint}</span>
-                    </div>
-                    <span
-                      className="mono"
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+
+            {step === 2 && (
+              <div style={{ display: "grid", gap: 0, borderTop: "1px solid var(--line)" }}>
+                {MODES.map((m, i) => {
+                  const active = mode === m.key;
+                  return (
+                    <button
+                      key={m.key}
+                      onClick={() => setMode(m.key)}
                       style={{
-                        fontSize: 11,
-                        color: "rgba(255,255,255,0.6)",
-                        minWidth: 28,
-                        textAlign: "right",
+                        padding: "26px 0",
+                        borderBottom: "1px solid var(--line-ghost)",
+                        display: "grid",
+                        gridTemplateColumns: "80px 200px 1fr auto",
+                        alignItems: "center",
+                        gap: 24,
+                        textAlign: "left",
+                        background: active ? "rgba(255,255,255,0.03)" : "transparent",
+                        transition: "background 0.2s ease",
+                        cursor: "pointer",
                       }}
                     >
-                      {axes[a.key]}
-                    </span>
-                  </div>
-                  <input
-                    type="range"
-                    min={0}
-                    max={100}
-                    value={axes[a.key]}
-                    onChange={(e) =>
-                      setAxes((prev) => ({ ...prev, [a.key]: Number(e.target.value) }))
-                    }
-                    className="range"
-                  />
+                      <span className="mono" style={{ fontSize: 11, color: active ? "var(--accent)" : "var(--fg-mid)", letterSpacing: "0.22em" }}>
+                        MD/{String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span className="serif" style={{ fontSize: 26, fontWeight: active ? 500 : 300, color: active ? "var(--fg)" : "var(--fg-mid)" }}>
+                        {m.jp}
+                      </span>
+                      <span style={{ fontSize: 12, color: active ? "var(--fg-mid)" : "var(--fg-low)", lineHeight: 1.7 }}>
+                        {m.desc}
+                      </span>
+                      <span
+                        className="mono"
+                        style={{
+                          fontSize: 11,
+                          letterSpacing: "0.28em",
+                          textTransform: "uppercase",
+                          color: active ? "var(--fg)" : "var(--fg-ghost)",
+                        }}
+                      >
+                        {m.label}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+
+            {step === 3 && (
+              <div>
+                <div className="mono" style={{ fontSize: 10, letterSpacing: "0.24em", textTransform: "uppercase", color: "var(--fg-mid)", marginBottom: 14 }}>
+                  Intent — 任意
                 </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {step === 1 && (
-          <div>
-            <div className="label-eyebrow" style={{ marginBottom: 16 }}>
-              時間軸を選ぶ
-            </div>
-            <div style={{ display: "grid", gap: 8 }}>
-              {HORIZONS.map((h) => (
-                <button
-                  key={h.key}
-                  onClick={() => setHorizon(h.key)}
+                <textarea
+                  value={intent}
+                  onChange={(e) => setIntent(e.target.value)}
+                  placeholder="例: もう少し静かに動いていたい / 関係をひとつ手放したい / 続けるかやめるか迷う"
+                  rows={5}
+                  className="input-text serif"
                   style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    padding: "16px 20px",
-                    borderRadius: 12,
-                    border: `1px solid ${horizon === h.key ? "rgba(255,255,255,0.32)" : "rgba(255,255,255,0.07)"}`,
-                    background:
-                      horizon === h.key ? "rgba(255,255,255,0.05)" : "rgba(255,255,255,0.018)",
-                    transition: "all 0.25s ease",
-                    textAlign: "left",
+                    fontSize: 20,
+                    fontWeight: 300,
+                    lineHeight: 1.7,
+                    resize: "vertical",
                   }}
-                >
-                  <div>
-                    <div
-                      style={{
-                        fontSize: 14,
-                        color: horizon === h.key ? "rgba(255,255,255,0.92)" : "rgba(255,255,255,0.55)",
-                        marginBottom: 3,
-                      }}
-                    >
-                      {h.jp}
-                    </div>
-                    <div
-                      className="mono"
-                      style={{ fontSize: 10, color: "rgba(255,255,255,0.32)", letterSpacing: "0.16em" }}
-                    >
-                      {h.label}
-                    </div>
-                  </div>
-                  <div
-                    style={{
-                      width: 10,
-                      height: 10,
-                      borderRadius: 999,
-                      background: horizon === h.key ? "rgba(255,255,255,0.92)" : "transparent",
-                      border: "1px solid rgba(255,255,255,0.32)",
-                      boxShadow:
-                        horizon === h.key ? "0 0 12px rgba(255,255,255,0.5)" : "none",
-                    }}
-                  />
-                </button>
-              ))}
-            </div>
+                />
+                <div style={{ marginTop: 16, fontSize: 11, color: "var(--fg-ghost)", lineHeight: 1.85 }}>
+                  この一言は、未来の言葉の選び方に少しだけ反映される。
+                </div>
+              </div>
+            )}
           </div>
-        )}
+        </div>
 
-        {step === 2 && (
-          <div>
-            <div className="label-eyebrow" style={{ marginBottom: 16 }}>
-              流れの方向 · どこへ向かう感じ?
-            </div>
-            <div style={{ display: "grid", gap: 8 }}>
-              {MODES.map((m) => (
-                <button
-                  key={m.key}
-                  onClick={() => setMode(m.key)}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    padding: "16px 20px",
-                    borderRadius: 12,
-                    border: `1px solid ${mode === m.key ? "rgba(255,255,255,0.32)" : "rgba(255,255,255,0.07)"}`,
-                    background:
-                      mode === m.key ? "rgba(255,255,255,0.05)" : "rgba(255,255,255,0.018)",
-                    transition: "all 0.25s ease",
-                    textAlign: "left",
-                  }}
-                >
-                  <div>
-                    <div
-                      style={{
-                        fontSize: 14,
-                        color: mode === m.key ? "rgba(255,255,255,0.92)" : "rgba(255,255,255,0.55)",
-                        marginBottom: 4,
-                      }}
-                    >
-                      {m.jp}
-                    </div>
-                    <div style={{ fontSize: 11, color: "rgba(255,255,255,0.35)" }}>
-                      {m.desc}
-                    </div>
-                  </div>
-                  <div
-                    className="mono"
-                    style={{
-                      fontSize: 10,
-                      color: mode === m.key ? "rgba(255,255,255,0.6)" : "rgba(255,255,255,0.22)",
-                      letterSpacing: "0.18em",
-                    }}
-                  >
-                    {m.label}
-                  </div>
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {step === 3 && (
-          <div>
-            <div className="label-eyebrow" style={{ marginBottom: 16 }}>
-              いま、見にいきたい一言 · 任意
-            </div>
-            <textarea
-              value={intent}
-              onChange={(e) => setIntent(e.target.value)}
-              placeholder="例: もう少し静かに動いていたい / 関係をひとつ手放したい / 続けるかやめるか迷う"
-              rows={5}
-              className="input-text"
-              style={{ resize: "vertical" }}
-            />
-            <div
-              style={{
-                marginTop: 10,
-                fontSize: 11,
-                color: "rgba(255,255,255,0.28)",
-                lineHeight: 1.7,
-              }}
-            >
-              書かなくていい。書く場合は短く。<br />
-              この一言は、未来の言葉の選び方に少しだけ反映される。
-            </div>
-          </div>
-        )}
-      </div>
-
-      <div
-        style={{
-          marginTop: 28,
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <button
-          onClick={back}
-          disabled={step === 0}
-          className="btn-ghost"
-          style={{ opacity: step === 0 ? 0.3 : 1, cursor: step === 0 ? "default" : "pointer" }}
+        <div
+          style={{
+            marginTop: 56,
+            paddingTop: 28,
+            borderTop: "1px solid var(--line)",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            gap: 12,
+            flexWrap: "wrap",
+          }}
         >
-          ← Back
-        </button>
-        {step < 3 ? (
-          <button onClick={next} className="btn-primary">
-            Next →
+          <button
+            onClick={back}
+            disabled={step === 0}
+            className="btn-line"
+          >
+            ◂ Back
           </button>
-        ) : (
-          <button onClick={submit} className="btn-primary">
-            未来を視る
-          </button>
-        )}
-      </div>
+          <div className="mono" style={{ fontSize: 10, color: "var(--fg-mid)", letterSpacing: "0.28em", textTransform: "uppercase" }}>
+            {step + 1} / 04
+          </div>
+          {step < 3 ? (
+            <button onClick={next} className="btn-fill">
+              Next ▸
+            </button>
+          ) : (
+            <button onClick={submit} className="btn-fill" style={{ background: "var(--accent)" }}>
+              ▸ 未来を視る
+            </button>
+          )}
+        </div>
+      </section>
     </div>
   );
 }

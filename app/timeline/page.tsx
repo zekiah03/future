@@ -16,167 +16,209 @@ export default function TimelinePage() {
 
   if (readings === "loading") {
     return (
-      <div style={{ maxWidth: 720, margin: "0 auto", padding: "52px 28px" }}>
-        <div className="label-eyebrow">Loading…</div>
+      <div style={{ padding: "clamp(60px, 8vw, 120px) clamp(20px, 5vw, 64px)" }}>
+        <div className="mono" style={{ fontSize: 11, letterSpacing: "0.28em", color: "var(--fg-mid)" }}>
+          LOADING…
+        </div>
       </div>
     );
   }
 
   return (
-    <div style={{ maxWidth: 720, margin: "0 auto", padding: "52px 28px 80px" }}>
-      <div className="fsi" style={{ animationDelay: "0.04s", marginBottom: 40 }}>
-        <div className="label-eyebrow" style={{ marginBottom: 14 }}>
-          Timeline · これまでの未来
+    <div>
+      <section
+        style={{
+          padding: "clamp(50px, 7vw, 100px) clamp(20px, 5vw, 64px)",
+          borderBottom: "1px solid var(--line)",
+        }}
+      >
+        <div className="mono rise" style={{ fontSize: 10, letterSpacing: "0.28em", color: "var(--fg-mid)", marginBottom: 22 }}>
+          ▸ STAGE 03 · ARCHIVE
         </div>
-        <h1 className="h-title" style={{ margin: "0 0 14px 0" }}>
-          記録された分岐の系譜
+        <h1 className="display rise" style={{ fontSize: "clamp(44px, 11vw, 140px)", animationDelay: "0.08s" }}>
+          TIMELINE
         </h1>
-        <p className="body-soft" style={{ maxWidth: 440 }}>
-          ここに残された予測は、いつかの自分が選んだ未来の輪郭。<br />
+        <p
+          className="serif rise"
+          style={{
+            marginTop: 26,
+            fontSize: "clamp(15px, 1.5vw, 20px)",
+            color: "var(--fg-mid)",
+            lineHeight: 1.85,
+            maxWidth: 580,
+            fontWeight: 300,
+            animationDelay: "0.18s",
+          }}
+        >
+          記録された分岐の系譜。
           時間が経つと、外れた距離が自分の動いた距離になる。
         </p>
-      </div>
+      </section>
 
-      {readings.length === 0 ? (
+      <section style={{ padding: "clamp(40px, 5vw, 70px) clamp(20px, 5vw, 64px)" }}>
         <div
-          className="glass-card fsi"
-          style={{ padding: "40px 28px", textAlign: "center", animationDelay: "0.16s" }}
+          style={{
+            display: "flex",
+            alignItems: "baseline",
+            justifyContent: "space-between",
+            paddingBottom: 18,
+            borderBottom: "1px solid var(--line)",
+            marginBottom: 0,
+          }}
         >
-          <div style={{ fontSize: 13, color: "rgba(255,255,255,0.5)", marginBottom: 18 }}>
-            まだ、視た未来がない
+          <div className="mono" style={{ fontSize: 11, letterSpacing: "0.28em", color: "var(--fg-mid)", textTransform: "uppercase" }}>
+            Entries — {readings.length}
           </div>
-          <Link href="/predict" className="btn-primary">
-            最初の現在地を置く →
+          <Link href="/predict" className="mono" style={{ fontSize: 11, letterSpacing: "0.28em", color: "var(--fg)" }}>
+            + NEW READING ▸
           </Link>
         </div>
-      ) : (
-        <div style={{ display: "grid", gap: 10 }}>
-          {readings.map((r, i) => {
-            const date = new Date(r.createdAt);
-            const horizonLabel = HORIZONS.find((h) => h.key === r.horizon)?.jp || r.horizon;
-            const modeLabel = MODES.find((m) => m.key === r.mode)?.jp || r.mode;
-            const top = [...r.result.scenarios].sort((a, b) => b.probability - a.probability)[0];
-            return (
-              <div
-                key={r.id}
-                className="glass-card fsi"
-                style={{
-                  padding: 22,
-                  animationDelay: `${0.16 + i * 0.05}s`,
-                  display: "flex",
-                  gap: 18,
-                  alignItems: "flex-start",
-                }}
-              >
+
+        {readings.length === 0 ? (
+          <div
+            style={{
+              padding: "80px 0",
+              textAlign: "center",
+              borderBottom: "1px solid var(--line-ghost)",
+            }}
+          >
+            <div className="serif" style={{ fontSize: 28, fontWeight: 300, color: "var(--fg-mid)", marginBottom: 24 }}>
+              まだ、視た未来がない
+            </div>
+            <Link href="/predict" className="btn-fill">
+              ▸ Place your first reading
+            </Link>
+          </div>
+        ) : (
+          <div>
+            {readings.map((r, i) => {
+              const date = new Date(r.createdAt);
+              const horizonLabel = HORIZONS.find((h) => h.key === r.horizon)?.jp || r.horizon;
+              const horizonEn = HORIZONS.find((h) => h.key === r.horizon)?.label || r.horizon;
+              const modeLabel = MODES.find((m) => m.key === r.mode)?.jp || r.mode;
+              const top = [...r.result.scenarios].sort((a, b) => b.probability - a.probability)[0];
+              const topAccent =
+                top.branch === "bright"
+                  ? "var(--accent-2)"
+                  : top.branch === "shadow"
+                    ? "var(--accent)"
+                    : "var(--fg)";
+              return (
                 <div
+                  key={r.id}
+                  className="rise"
                   style={{
-                    minWidth: 56,
-                    paddingTop: 2,
-                    borderRight: "1px solid rgba(255,255,255,0.06)",
-                    paddingRight: 16,
+                    padding: "32px 0",
+                    borderBottom: "1px solid var(--line-ghost)",
+                    display: "grid",
+                    gridTemplateColumns: "minmax(0, 120px) 1fr minmax(0, 220px)",
+                    gap: "clamp(20px, 3vw, 56px)",
+                    alignItems: "start",
+                    animationDelay: `${0.06 + i * 0.05}s`,
                   }}
                 >
-                  <div
-                    className="mono"
-                    style={{
-                      fontSize: 22,
-                      fontWeight: 200,
-                      color: "rgba(255,255,255,0.85)",
-                      lineHeight: 1,
-                    }}
-                  >
-                    {String(date.getDate()).padStart(2, "0")}
-                  </div>
-                  <div
-                    className="mono"
-                    style={{
-                      fontSize: 9,
-                      color: "rgba(255,255,255,0.35)",
-                      letterSpacing: "0.18em",
-                      marginTop: 4,
-                    }}
-                  >
-                    {date.toLocaleString("ja-JP", { year: "2-digit", month: "2-digit" }).replace(/\//g, ".")}
-                  </div>
-                </div>
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <div
-                    style={{
-                      display: "flex",
-                      gap: 8,
-                      marginBottom: 8,
-                      flexWrap: "wrap",
-                    }}
-                  >
-                    <span
-                      style={{
-                        fontSize: 10,
-                        padding: "3px 9px",
-                        borderRadius: 999,
-                        border: "1px solid rgba(255,255,255,0.1)",
-                        color: "rgba(255,255,255,0.6)",
-                      }}
-                    >
-                      {horizonLabel}
-                    </span>
-                    <span
-                      style={{
-                        fontSize: 10,
-                        padding: "3px 9px",
-                        borderRadius: 999,
-                        border: "1px solid rgba(255,255,255,0.1)",
-                        color: "rgba(255,255,255,0.6)",
-                      }}
-                    >
-                      {modeLabel}
-                    </span>
-                    <span
+                  <div>
+                    <div className="display" style={{ fontSize: 56, lineHeight: 1 }}>
+                      {String(date.getDate()).padStart(2, "0")}
+                    </div>
+                    <div
                       className="mono"
                       style={{
                         fontSize: 10,
-                        color: "rgba(255,255,255,0.32)",
-                        letterSpacing: "0.14em",
-                        padding: "3px 0",
+                        letterSpacing: "0.24em",
+                        textTransform: "uppercase",
+                        color: "var(--fg-ghost)",
+                        marginTop: 10,
                       }}
                     >
-                      {top.branch} · {top.probability}%
-                    </span>
-                  </div>
-                  <div
-                    style={{
-                      fontSize: 13,
-                      color: "rgba(255,255,255,0.78)",
-                      marginBottom: 8,
-                      lineHeight: 1.65,
-                      fontWeight: 300,
-                    }}
-                  >
-                    {r.result.oneSentence}
-                  </div>
-                  {r.intent && (
-                    <div
-                      style={{
-                        fontSize: 11,
-                        color: "rgba(255,255,255,0.35)",
-                        lineHeight: 1.7,
-                        marginBottom: 10,
-                        borderLeft: "2px solid rgba(255,255,255,0.08)",
-                        paddingLeft: 10,
-                      }}
-                    >
-                      {r.intent}
+                      {date
+                        .toLocaleString("ja-JP", { year: "2-digit", month: "2-digit" })
+                        .replace(/\//g, ".")}
                     </div>
-                  )}
-                  <div style={{ display: "flex", gap: 14, marginTop: 6 }}>
+                  </div>
+
+                  <div style={{ minWidth: 0 }}>
+                    <div style={{ display: "flex", gap: 14, marginBottom: 14, flexWrap: "wrap" }}>
+                      <span
+                        className="mono"
+                        style={{
+                          fontSize: 10,
+                          letterSpacing: "0.24em",
+                          textTransform: "uppercase",
+                          color: "var(--fg-mid)",
+                          padding: "4px 10px",
+                          border: "1px solid var(--line-ghost)",
+                        }}
+                      >
+                        {horizonEn} · {horizonLabel}
+                      </span>
+                      <span
+                        className="mono"
+                        style={{
+                          fontSize: 10,
+                          letterSpacing: "0.24em",
+                          textTransform: "uppercase",
+                          color: "var(--fg-mid)",
+                          padding: "4px 10px",
+                          border: "1px solid var(--line-ghost)",
+                        }}
+                      >
+                        {modeLabel}
+                      </span>
+                      <span
+                        className="mono"
+                        style={{
+                          fontSize: 10,
+                          letterSpacing: "0.24em",
+                          textTransform: "uppercase",
+                          color: topAccent,
+                          padding: "4px 10px",
+                          border: `1px solid ${topAccent}`,
+                        }}
+                      >
+                        {top.branch} · {top.probability}%
+                      </span>
+                    </div>
+                    <div
+                      className="serif"
+                      style={{
+                        fontSize: "clamp(18px, 2vw, 26px)",
+                        fontWeight: 500,
+                        lineHeight: 1.5,
+                        color: "var(--fg)",
+                        marginBottom: 12,
+                      }}
+                    >
+                      {r.result.oneSentence}
+                    </div>
+                    {r.intent && (
+                      <div
+                        style={{
+                          borderLeft: "2px solid var(--line-ghost)",
+                          paddingLeft: 14,
+                          fontSize: 12,
+                          color: "var(--fg-low)",
+                          lineHeight: 1.7,
+                        }}
+                      >
+                        {r.intent}
+                      </div>
+                    )}
+                  </div>
+
+                  <div style={{ display: "flex", flexDirection: "column", gap: 10, alignItems: "flex-end" }}>
                     <Link
                       href={`/result?id=${r.id}`}
+                      className="mono"
                       style={{
                         fontSize: 11,
-                        color: "rgba(255,255,255,0.55)",
-                        letterSpacing: "0.1em",
+                        letterSpacing: "0.24em",
+                        color: "var(--fg)",
+                        borderBottom: "1px solid var(--fg)",
+                        paddingBottom: 4,
                       }}
                     >
-                      開く →
+                      OPEN ▸
                     </Link>
                     <button
                       onClick={() => {
@@ -185,22 +227,23 @@ export default function TimelinePage() {
                           refresh();
                         }
                       }}
+                      className="mono"
                       style={{
-                        fontSize: 11,
-                        color: "rgba(255,255,255,0.22)",
-                        letterSpacing: "0.1em",
+                        fontSize: 10,
+                        letterSpacing: "0.24em",
+                        color: "var(--fg-ghost)",
                         cursor: "pointer",
                       }}
                     >
-                      消す
+                      DELETE
                     </button>
                   </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
-      )}
+              );
+            })}
+          </div>
+        )}
+      </section>
     </div>
   );
 }

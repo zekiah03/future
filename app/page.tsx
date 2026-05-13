@@ -2,236 +2,300 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div style={{ maxWidth: 680, margin: "0 auto", padding: "52px 28px 70px" }}>
-      <div className="fsi" style={{ animationDelay: "0.04s", marginBottom: 56 }}>
-        <div className="label-eyebrow" style={{ marginBottom: 14 }}>
-          Future Prediction · Twin Mirror
-        </div>
-        <h1 className="h-title" style={{ margin: "0 0 14px 0" }}>
-          未来の自分を、いま視にいく
-        </h1>
-        <p className="body-soft" style={{ maxWidth: 440, margin: 0 }}>
-          いまの13軸の自分を記録すると、ツインがそこから先の輪郭を返します。
-          <br />
-          当てるためではなく、向き合うためのコンパス。
-        </p>
-      </div>
-
-      <section className="fsi" style={{ animationDelay: "0.16s", marginBottom: 48 }}>
-        <div className="label-eyebrow" style={{ marginBottom: 18 }}>
-          いま、はじめる
-        </div>
-        <Link
-          href="/predict"
-          className="glass-card fsi"
+    <div>
+      <section
+        style={{
+          padding: "clamp(60px, 9vw, 130px) clamp(20px, 5vw, 64px) clamp(40px, 7vw, 90px)",
+          borderBottom: "1px solid var(--line)",
+        }}
+      >
+        <div
+          className="mono rise"
           style={{
             display: "flex",
-            alignItems: "center",
-            gap: 22,
-            padding: "26px 28px",
-            animationDelay: "0.22s",
+            alignItems: "baseline",
+            gap: 12,
+            fontSize: 10,
+            letterSpacing: "0.28em",
+            textTransform: "uppercase",
+            color: "var(--fg-mid)",
+            marginBottom: 28,
+            animationDelay: "0.04s",
           }}
         >
-          <div
-            style={{
-              width: 52,
-              height: 52,
-              borderRadius: 16,
-              border: "1px solid rgba(255,255,255,0.18)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexShrink: 0,
-              background: "rgba(255,255,255,0.025)",
-              boxShadow: "inset 0 0 24px rgba(255,255,255,0.06), 0 0 28px rgba(255,255,255,0.07)",
-            }}
-          >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.78)" strokeWidth="1.2">
-              <circle cx="12" cy="12" r="9" />
-              <circle cx="12" cy="12" r="3.5" />
-              <line x1="12" y1="3" x2="12" y2="7" />
-              <line x1="12" y1="17" x2="12" y2="21" />
-              <line x1="3" y1="12" x2="7" y2="12" />
-              <line x1="17" y1="12" x2="21" y2="12" />
-            </svg>
-          </div>
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <div
-              style={{
-                fontSize: 10,
-                letterSpacing: "0.24em",
-                textTransform: "uppercase",
-                color: "rgba(255,255,255,0.6)",
-                marginBottom: 6,
-              }}
-            >
-              Predict
-            </div>
-            <div
-              style={{
-                fontSize: 16,
-                fontWeight: 300,
-                color: "rgba(255,255,255,0.88)",
-                marginBottom: 4,
-                letterSpacing: "0.01em",
-              }}
-            >
-              現在地を入れて、未来を読む
-            </div>
-            <div style={{ fontSize: 11.5, color: "rgba(255,255,255,0.32)" }}>
-              13軸 × 4つの時間軸 × 3つの分岐
-            </div>
-          </div>
-          <span
-            style={{
-              fontSize: 18,
-              color: "rgba(255,255,255,0.42)",
-              flexShrink: 0,
-            }}
-          >
-            →
-          </span>
-        </Link>
-      </section>
+          <span className="dot dot-accent" style={{ alignSelf: "center" }} />
+          <span>Predictor Lineup · vol.01</span>
+          <span style={{ color: "var(--fg-ghost)" }}>· 13 axis × 4 horizons × 3 branches</span>
+        </div>
 
-      <section style={{ marginBottom: 48 }}>
-        <div className="label-eyebrow fsi" style={{ animationDelay: "0.3s", marginBottom: 18 }}>
-          観測の続きを見る
-        </div>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10 }}>
-          <Link
-            href="/result"
-            className="glass-tile fsi"
-            style={{ display: "block", padding: 16, animationDelay: "0.36s" }}
-          >
-            <div
-              style={{
-                width: 6,
-                height: 6,
-                borderRadius: 999,
-                background: "rgba(255,255,255,0.72)",
-                boxShadow: "0 0 6px rgba(255,255,255,0.6), 0 0 14px rgba(255,255,255,0.25)",
-                marginBottom: 12,
-              }}
-            />
-            <div
-              className="mono"
-              style={{
-                fontSize: 11,
-                color: "rgba(255,255,255,0.78)",
-                marginBottom: 6,
-              }}
-            >
-              result
-            </div>
-            <div style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", lineHeight: 1.5 }}>
-              直近の未来予測
-            </div>
-          </Link>
-          <Link
-            href="/timeline"
-            className="glass-tile fsi"
-            style={{ display: "block", padding: 16, animationDelay: "0.42s" }}
-          >
-            <div
-              style={{
-                width: 6,
-                height: 6,
-                borderRadius: 999,
-                background: "rgba(255,255,255,0.72)",
-                boxShadow: "0 0 6px rgba(255,255,255,0.6), 0 0 14px rgba(255,255,255,0.25)",
-                marginBottom: 12,
-              }}
-            />
-            <div
-              className="mono"
-              style={{
-                fontSize: 11,
-                color: "rgba(255,255,255,0.78)",
-                marginBottom: 6,
-              }}
-            >
-              timeline
-            </div>
-            <div style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", lineHeight: 1.5 }}>
-              これまでの予測の系譜
-            </div>
-          </Link>
-          <Link
-            href="/theory"
-            className="glass-tile fsi"
-            style={{ display: "block", padding: 16, animationDelay: "0.48s" }}
-          >
-            <div
-              style={{
-                width: 6,
-                height: 6,
-                borderRadius: 999,
-                background: "rgba(255,255,255,0.72)",
-                boxShadow: "0 0 6px rgba(255,255,255,0.6), 0 0 14px rgba(255,255,255,0.25)",
-                marginBottom: 12,
-              }}
-            />
-            <div
-              className="mono"
-              style={{
-                fontSize: 11,
-                color: "rgba(255,255,255,0.78)",
-                marginBottom: 6,
-              }}
-            >
-              theory
-            </div>
-            <div style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", lineHeight: 1.5 }}>
-              どう未来を読むのか
-            </div>
-          </Link>
-        </div>
-      </section>
-
-      <section className="fsi" style={{ animationDelay: "0.6s" }}>
-        <div className="label-eyebrow" style={{ marginBottom: 18 }}>
-          このアプリの輪郭
-        </div>
-        <div
-          className="glass-card"
+        <h1
+          className="display rise"
           style={{
-            padding: "26px 28px",
+            fontSize: "clamp(56px, 16vw, 220px)",
+            margin: 0,
+            color: "var(--fg)",
+            animationDelay: "0.1s",
+          }}
+        >
+          FUTURE
+          <br />
+          PREDICTOR
+        </h1>
+
+        <div
+          className="rise"
+          style={{
             display: "grid",
-            gap: 18,
+            gridTemplateColumns: "1fr 1fr",
+            gap: "clamp(20px, 4vw, 64px)",
+            marginTop: 48,
+            animationDelay: "0.22s",
+            maxWidth: 1100,
+          }}
+        >
+          <p
+            className="serif"
+            style={{
+              fontSize: "clamp(16px, 1.6vw, 22px)",
+              fontWeight: 300,
+              lineHeight: 1.85,
+              color: "var(--fg)",
+              letterSpacing: "0.02em",
+            }}
+          >
+            13の現在地を置くと、
+            <br />
+            ツインがそこから先の輪郭を
+            <br />
+            <span style={{ color: "var(--accent)" }}>三つの分岐</span>として返す。
+          </p>
+          <p
+            style={{
+              fontSize: 13,
+              lineHeight: 1.95,
+              color: "var(--fg-mid)",
+              maxWidth: 460,
+            }}
+          >
+            当てるためのアプリではなく、向き合うためのコンパス。
+            <br />
+            外れた距離が、いつかの自分の動いた距離になる。
+          </p>
+        </div>
+
+        <div className="rise" style={{ marginTop: 56, display: "flex", gap: 12, flexWrap: "wrap", animationDelay: "0.34s" }}>
+          <Link href="/predict" className="btn-fill">
+            ▸ Predict the Future
+          </Link>
+          <Link href="/theory" className="btn-line">
+            How it works
+          </Link>
+        </div>
+      </section>
+
+      <section
+        style={{
+          padding: "clamp(50px, 7vw, 100px) clamp(20px, 5vw, 64px)",
+          borderBottom: "1px solid var(--line)",
+        }}
+      >
+        <div className="section-title">
+          <span className="no">N° 01</span>
+          <span className="name">ラインナップ</span>
+          <span className="name-en">— PROGRAM</span>
+        </div>
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+            gap: 0,
+            borderLeft: "1px solid var(--line-ghost)",
           }}
         >
           {[
-            { k: "01", t: "13軸の現在地を入れる", s: "心・身体・関係・働き・財・学び・遊び・表現・発見・信・静・響・跡" },
-            { k: "02", t: "時間軸と流れを選ぶ", s: "1ヶ月・半年・1年・3年 × 拡張・均衡・深化" },
-            { k: "03", t: "ツインが3つの分岐を描く", s: "Light · Median · Shadow の確率と転機が返ってくる" },
-            { k: "04", t: "Timelineに置いて、時間と照らす", s: "外れた距離が、自分の動いた距離になる" },
-          ].map((it) => (
-            <div key={it.k} style={{ display: "flex", gap: 18, alignItems: "flex-start" }}>
+            {
+              no: "01",
+              jp: "現在地を置く",
+              en: "Set the present",
+              desc: "13軸の数値で、いまの自分を一度だけ静かに描く",
+              href: "/predict",
+            },
+            {
+              no: "02",
+              jp: "未来を視る",
+              en: "Read the futures",
+              desc: "Light / Median / Shadow の3分岐がそれぞれの確率で返る",
+              href: "/result",
+            },
+            {
+              no: "03",
+              jp: "時間に置く",
+              en: "Lay in time",
+              desc: "Timelineに重ね、外れた距離をあとから確かめる",
+              href: "/timeline",
+            },
+            {
+              no: "04",
+              jp: "理屈を知る",
+              en: "Know the why",
+              desc: "ツインがどう未来を描くか、内側の仕組みを開示する",
+              href: "/theory",
+            },
+          ].map((s, i) => (
+            <Link
+              key={s.no}
+              href={s.href}
+              className="rise"
+              style={{
+                padding: "32px 28px",
+                borderRight: "1px solid var(--line-ghost)",
+                borderBottom: "1px solid var(--line-ghost)",
+                display: "flex",
+                flexDirection: "column",
+                gap: 18,
+                minHeight: 260,
+                animationDelay: `${0.12 + i * 0.07}s`,
+                transition: "background 0.25s ease",
+              }}
+            >
+              <div className="mono" style={{ fontSize: 11, color: "var(--fg-mid)", letterSpacing: "0.24em" }}>
+                STEP — {s.no}
+              </div>
+              <div className="serif" style={{ fontSize: 24, fontWeight: 500, color: "var(--fg)", lineHeight: 1.4 }}>
+                {s.jp}
+              </div>
               <div
                 className="mono"
                 style={{
                   fontSize: 10,
-                  color: "rgba(255,255,255,0.35)",
-                  paddingTop: 3,
-                  letterSpacing: "0.18em",
+                  letterSpacing: "0.24em",
+                  textTransform: "uppercase",
+                  color: "var(--accent)",
                 }}
               >
-                {it.k}
+                {s.en}
               </div>
-              <div style={{ flex: 1 }}>
-                <div
-                  style={{
-                    fontSize: 13,
-                    fontWeight: 400,
-                    color: "rgba(255,255,255,0.78)",
-                    marginBottom: 4,
-                  }}
-                >
-                  {it.t}
-                </div>
-                <div style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", lineHeight: 1.7 }}>{it.s}</div>
+              <div style={{ fontSize: 12, lineHeight: 1.8, color: "var(--fg-mid)", marginTop: "auto" }}>
+                {s.desc}
               </div>
+              <div className="mono" style={{ fontSize: 10, color: "var(--fg-ghost)", letterSpacing: "0.24em" }}>
+                ▸ OPEN
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section
+        style={{
+          padding: "clamp(50px, 7vw, 100px) clamp(20px, 5vw, 64px)",
+          borderBottom: "1px solid var(--line)",
+          display: "grid",
+          gridTemplateColumns: "240px 1fr",
+          gap: "clamp(24px, 4vw, 72px)",
+          alignItems: "start",
+        }}
+      >
+        <div>
+          <div className="eyebrow" style={{ marginBottom: 14 }}>
+            Manifesto
+          </div>
+          <div className="serif" style={{ fontSize: 28, fontWeight: 300, lineHeight: 1.5, letterSpacing: "0.02em" }}>
+            未来は<br />
+            選ばれた未来。
+          </div>
+        </div>
+        <div>
+          <p
+            style={{
+              fontSize: 15,
+              lineHeight: 2.05,
+              color: "var(--fg)",
+              fontWeight: 300,
+              maxWidth: 700,
+              letterSpacing: "0.02em",
+            }}
+          >
+            このアプリは未来を当てない。
+            いまの自分から滲み出る別の自分の輪郭を、
+            ありうる確率として並べてみせるだけ。
+            <br />
+            <br />
+            13の軸はそれぞれが0〜100の値を持ち、
+            その合成と分散がツインの体温を決める。
+            時間が経つと、外れたぶんだけ自分が動いている。
+            予測は地図ではなく、コンパスだ。
+          </p>
+          <div
+            style={{
+              marginTop: 32,
+              display: "flex",
+              alignItems: "center",
+              gap: 12,
+              fontFamily: "var(--mono)",
+              fontSize: 10,
+              letterSpacing: "0.28em",
+              textTransform: "uppercase",
+              color: "var(--fg-mid)",
+            }}
+          >
+            <span style={{ width: 28, height: 1, background: "var(--fg-mid)" }} />
+            Twin Mirror · Solnova Lab
+          </div>
+        </div>
+      </section>
+
+      <section style={{ padding: "clamp(50px, 7vw, 100px) clamp(20px, 5vw, 64px)" }}>
+        <div className="section-title">
+          <span className="no">N° 02</span>
+          <span className="name">13軸の名前</span>
+          <span className="name-en">— AXIS INDEX</span>
+        </div>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
+            gap: 0,
+            borderLeft: "1px solid var(--line-ghost)",
+            borderTop: "1px solid var(--line-ghost)",
+          }}
+        >
+          {[
+            ["mind", "心", "気分と思考"],
+            ["body", "身体", "感覚と元気"],
+            ["relations", "関係", "人と人の間"],
+            ["work", "働き", "営みの流れ"],
+            ["money", "財", "経済の手応え"],
+            ["learning", "学び", "知の進み"],
+            ["play", "遊び", "余白と楽しさ"],
+            ["expression", "表現", "外に出す動き"],
+            ["discovery", "発見", "新しい出会い"],
+            ["trust", "信", "自分への信"],
+            ["peace", "静", "内の静けさ"],
+            ["resonance", "響", "響き合うもの"],
+            ["trace", "跡", "残してきた足跡"],
+          ].map(([k, jp, desc], i) => (
+            <div
+              key={k}
+              className="rise"
+              style={{
+                padding: "20px 22px",
+                borderRight: "1px solid var(--line-ghost)",
+                borderBottom: "1px solid var(--line-ghost)",
+                animationDelay: `${0.1 + i * 0.03}s`,
+              }}
+            >
+              <div className="mono" style={{ fontSize: 10, letterSpacing: "0.24em", textTransform: "uppercase", color: "var(--fg-mid)", marginBottom: 8 }}>
+                AX/{String(i + 1).padStart(2, "0")}
+              </div>
+              <div className="serif" style={{ fontSize: 22, fontWeight: 500, marginBottom: 4 }}>
+                {jp}
+              </div>
+              <div className="mono" style={{ fontSize: 10, letterSpacing: "0.18em", color: "var(--fg-ghost)", marginBottom: 8, textTransform: "uppercase" }}>
+                {k}
+              </div>
+              <div style={{ fontSize: 11, color: "var(--fg-low)", lineHeight: 1.7 }}>{desc}</div>
             </div>
           ))}
         </div>
